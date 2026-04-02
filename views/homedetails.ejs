@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home Details - Airbnb </title>
+  <style>
+    /* ===== RESET + THEME ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: #ff385c;
+      --accent-hover: #e03150;
+      --bg: #f7f7f7;
+      --border: #e5e5e5;
+      --text: #222;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #fff;
+      padding: clamp(12px, 3vw, 20px) clamp(16px, 5vw, 60px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: background 0.2s ease;
+      display: inline-block;
+    }
+
+    nav ul li a:hover {
+      background: #f2f2f2;
+    }
+
+    /* ===== PAGE TITLE ===== */
+    h1 {
+      text-align: center;
+      margin: clamp(30px, 6vw, 60px) 0;
+      font-size: clamp(1.6rem, 6vw, 2.6rem);
+      font-weight: 650;
+    }
+
+    /* ===== DETAIL CARD ===== */
+    .detail-card {
+      width: min(94%, 900px);
+      margin: 0 auto clamp(40px, 8vw, 100px);
+      background: #fff;
+      border-radius: clamp(16px, 3vw, 22px);
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== IMAGE ===== */
+    .detail-card img {
+      width: 100%;
+      height: clamp(220px, 45vw, 420px);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== CONTENT ===== */
+    .detail-content {
+      padding: clamp(20px, 5vw, 40px);
+    }
+
+    .detail-content h2 {
+      margin: 0 0 clamp(10px, 3vw, 18px);
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 600;
+    }
+
+    .detail-content p {
+      margin: 8px 0;
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .detail-content strong {
+      color: #333;
+    }
+
+    /* ===== TABLET FIX ===== */
+    @media (min-width: 640px) {
+      nav ul {
+        width: auto;
+      }
+    }
+
+    /* ===== DESKTOP POLISH ===== */
+    @media (min-width: 1024px) {
+      .detail-card:hover {
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    /* ===== SMALL PHONE FIX ===== */
+    @media (max-width: 360px) {
+      nav ul {
+        justify-content: center;
+      }
+    }
+
+    /* ===== HOMEPAGE STYLE NAVBAR (Clean SaaS + Responsive) ===== */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+
+      padding: clamp(12px, 3vw, 18px) clamp(16px, 6vw, 60px);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ===== LOGO ===== */
+    .logo {
+      font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.2px;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      margin: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-weight: 500;
+      font-size: clamp(0.85rem, 2.6vw, 0.95rem);
+
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    /* ===== BUTTON SYSTEM ===== */
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Login / Signup buttons */
+    .auth-btn {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .auth-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Logout button */
+    .logout-btn {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+    }
+
+    /* Fix form inside navbar */
+    .inline-form {
+      margin: 0;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 600px) {
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .auth-buttons {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <%-include ('partials/navbar') %>
+
+    <h1>Home Details</h1>
+
+    <div class="detail-card">
+      <img src="<%= home.photoUrl %>" alt="House Photo">
+      <div class="detail-content">
+        <h2>
+          <%= home.houseName %>
+        </h2>
+        <p><strong>Price:</strong>
+          <%= home.price %> $/night
+        </p>
+        <p><strong>Location:</strong>
+          <%= home.location %>
+        </p>
+        <p><strong>Description:</strong>
+          <%= home.description %>
+        </p>
+      </div>
+    </div>
+</body>
+
+</html>

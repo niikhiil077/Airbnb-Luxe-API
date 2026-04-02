@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <title>Home List - Airbnb</title>
+    <style>
+        /* ===== RESET + THEME ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #ff385c;
+            --accent-hover: #e03150;
+            --bg: #f7f7f7;
+            --border: #e5e5e5;
+            --text: #222;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            background: #fff;
+            padding: clamp(12px, 3vw, 20px) clamp(16px, 5vw, 60px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        nav ul li a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            background: #f2f2f2;
+        }
+
+        /* ===== HEADING ===== */
+        h1 {
+            text-align: center;
+            margin: clamp(30px, 6vw, 60px) 0;
+            font-size: clamp(1.6rem, 6vw, 2.6rem);
+            font-weight: 650;
+        }
+
+        /* ===== RESPONSIVE GRID ===== */
+        .card-container {
+            width: min(95%, 1400px);
+            margin: 0 auto clamp(40px, 8vw, 100px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(16px, 3vw, 28px);
+
+        }
+
+        /* Tablet */
+        @media (min-width: 640px) {
+            .card-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav ul {
+                width: auto;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .card-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1400px) {
+            .card-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: #fff;
+            border-radius: clamp(14px, 3vw, 20px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            height: 100%;
+            width: 29%;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12);
+        }
+
+        /* ===== IMAGE ===== */
+        .card img {
+            width: 100%;
+            height: clamp(180px, 28vw, 260px);
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== CONTENT ===== */
+        .card-content {
+            padding: clamp(16px, 4vw, 22px);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .card-content h2 {
+            margin: 0 0 6px;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            font-weight: 600;
+        }
+
+        .card-content p {
+            margin: 0;
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .card-content strong {
+            color: #333;
+        }
+
+        /* ===== ACTION BUTTONS ===== */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 999px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            touch-action: manipulation;
+        }
+
+        #fav-btn {
+            background-color: rgb(77, 235, 235);
+        }
+
+        .edit-btn {
+            background: #f2f2f2;
+            color: #222;
+        }
+
+        .edit-btn:hover {
+            background: #e6e6e6;
+        }
+
+        .delete-btn {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .card-actions button:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== SMALL PHONE FIX ===== */
+        @media (max-width: 360px) {
+            nav ul {
+                justify-content: center;
+            }
+        }
+
+        /* ===== HOMEPAGE STYLE NAVBAR (Clean SaaS + Responsive) ===== */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: clamp(12px, 3vw, 18px) clamp(16px, 6vw, 60px);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ===== LOGO ===== */
+        .logo {
+            font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.2px;
+        }
+
+        /* ===== NAV LINKS ===== */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            font-size: clamp(0.85rem, 2.6vw, 0.95rem);
+
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        /* ===== BUTTON SYSTEM ===== */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Login / Signup buttons */
+        .auth-btn {
+            background: #111827;
+            color: #ffffff;
+        }
+
+        .auth-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Logout button */
+        .logout-btn {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Fix form inside navbar */
+        .inline-form {
+            margin: 0;
+        }
+
+        /* ===== TABLET LAYOUT ===== */
+        @media (min-width: 640px) {
+            .nav-links {
+                width: auto;
+            }
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ===== SMALL PHONE FIX ===== */
+        @media (max-width: 360px) {
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+
+    <%-include ('partials/navbar') %>
+
+        <!-- Page Heading -->
+        <h1>Available Homes</h1>
+        <!-- Card Grid -->
+        <div class="card-container">
+            <!-- Example Card -->
+            <% homes.forEach((val)=> {%>
+                <a href="/host/home/<%= val._id.toHexString() %>">
+                    <div class="card"> <img src="<%= val.photoUrl %>" alt="House Photo">
+                        <div class="card-content">
+                            <h2>
+                                <%=val.houseName %>
+                            </h2>
+                            <p><strong>Price: </strong>
+                                <%=val.price %>$/night
+                            </p>
+                            <p><strong>Location: </strong>
+                                <%=val.location %>
+                            </p>
+                            <p><strong>Description: </strong>
+                                <%=val.description %>
+                            </p>
+                            <div class="card-actions">
+                                <a href="/host/edithome/<%= val._id.toHexString() %>"><button
+                                        class="edit-btn">Edit</button></a>
+                                <a href="/host/delete/home/<%= val._id.toHexString() %>"><button
+                                        class="delete-btn">Delete</button></a>
+
+                                <form action="/host/favourites" method="post">
+                                    <input type="hidden" name="homeId" value="<%= val._id %>">
+                                    <button type="submit" class="edit-btn" id="fav-btn">Add to favourite</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <% }) %>
+        </div>
+</body>
+
+</html>

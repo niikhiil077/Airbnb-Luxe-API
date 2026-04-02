@@ -1,0 +1,32 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo">Airbnb Luxe</div>
+
+    <% if(isloggedIn){ %>
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <% if(user && user.usertype==='host' ){ %>
+                <li><a href="/host/homelist">Home List</a></li>
+                <li><a href="/host/favourites">Favorites</a></li>
+                <li><a href="/host/addhome">Add Home</a></li>
+                <% } %>
+
+                    <li>
+                        <form action="/logout" method="post" class="inline-form">
+                            <button type="submit" class="btn logout-btn">Logout</button>
+                        </form>
+                    </li>
+
+        </ul>
+
+        <% } else { %>
+
+            <div class="auth-buttons">
+                <a href="/login" class="btn auth-btn">Login</a>
+                <a href="/signup" class="btn auth-btn">Signup</a>
+            </div>
+
+            <% } %>
+</nav>

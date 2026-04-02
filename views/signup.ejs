@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Page</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAVBAR (Clean SaaS Style) ===== */
+    .navbar {
+      background: #ffffff;
+      padding: 16px 32px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: #f3f4f6;
+    }
+
+    /* ===== BUTTON SYSTEM ===== */
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* Auth buttons */
+    .auth-btn {
+      background: #111827;
+      color: white;
+    }
+
+    .auth-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Logout button */
+    .logout-btn {
+      background: #ef4444;
+      color: white;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+    }
+
+    .inline-form {
+      margin: 0;
+    }
+
+    /* ===== PAGE CENTER ===== */
+    .signup-container {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+      padding: 40px 32px;
+
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* Smooth animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== TITLE ===== */
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* ===== LABELS ===== */
+    .signup-container label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+
+    /* ===== INPUTS ===== */
+    .signup-container input[type="text"],
+    .signup-container input[type="email"],
+    .signup-container input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .signup-container input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* ===== RADIO GROUP ===== */
+    .signup-container p {
+      margin: 10px 0 8px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .signup-container input[type="radio"] {
+      margin-right: 6px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    /* ===== TERMS ===== */
+    .terms {
+      margin: 16px 0;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #374151;
+    }
+
+    /* ===== SUBMIT BUTTON ===== */
+    .signup-container input[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: #111827;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .signup-container input[type="submit"]:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    /* ===== ERROR BOX ===== */
+    .signup-container ul {
+      margin: 16px 0 0;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      font-size: 0.85rem;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .signup-container {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <%-include ('partials/navbar') %>
+
+    <div class="signup-container">
+      <h2>Create Account</h2>
+      <form action="/signup" method="post">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" value="<%= oldinputs.firstname? oldinputs.firstname : '' %>"
+          required>
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" value="<%= oldinputs.lastname? oldinputs.lastname : '' %>"
+          required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="<%= oldinputs.email? oldinputs.email : '' %>" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm">Confirm Password</label>
+        <input type="password" id="confirm" name="confirmpassword" required>
+
+        <p>Select usertype</p>
+
+        <label for="usertype" style="display:inline-block">Host</label>
+        <input type="radio" name="usertype" id="host" value="host" <%=oldinputs.usertype==='host' ? 'checked' : '' %>>
+
+        <label for="usertype" style="display:inline-block">User</label>
+        <input type="radio" name="usertype" id="user" value="user" value="user" <%=oldinputs.usertype==='user'
+          ? 'checked' : '' %>>
+
+        <div class="terms">
+          <input type="checkbox" id="terms" name="terms" <%=oldinputs.terms==='on' ? 'checked' : '' %> required>
+          <label for="terms">I agree to the Terms and Conditions</label>
+        </div>
+
+        <input type="submit" value="Sign Up">
+
+        <% if(errors.length){ %>
+          <div>
+            <ul>
+              <% errors.forEach((val)=>{ %>
+                <li>
+                  <%= val %>
+                </li>
+                <% }) %>
+            </ul>
+          </div>
+          <% } %>
+
+      </form>
+    </div>
+</body>
+
+</html>

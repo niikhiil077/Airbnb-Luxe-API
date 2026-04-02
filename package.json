@@ -1,0 +1,26 @@
+{
+  "name": "airbnb",
+  "version": "1.0.0",
+  "description": "this is airbnb project",
+  "license": "ISC",
+  "author": "nikhil",
+  "type": "commonjs",
+  "main": "express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon express.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-mongodb-session": "^5.0.0",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.1",
+    "express-validators": "^1.0.4",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.1",
+    "mysql2": "^3.16.3",
+    "nodemon": "^3.1.11"
+  }
+}

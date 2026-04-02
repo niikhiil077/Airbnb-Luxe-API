@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Reset ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ===== Page Layout ===== */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f5f6f8;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ===== NAVBAR (Sticky SaaS Style) ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+            flex-shrink: 0;
+
+            background: #ffffff;
+            padding: 16px 32px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* Nav links */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #f3f4f6;
+        }
+
+        /* Button system */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+            transition: 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Auth buttons */
+        .auth-btn {
+            background: #111827;
+            color: white;
+        }
+
+        .auth-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Logout button */
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Fix form inside navbar */
+        .inline-form {
+            margin: 0;
+        }
+
+        /* ===== Login Container ===== */
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px 36px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Heading */
+        .login-box h2 {
+            margin: 0 0 28px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1f2933;
+            text-align: center;
+        }
+
+        /* Inputs */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #d9dde3;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            background: #fafafa;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Button */
+        .login-box button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: #111827;
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .login-box button:hover {
+            background: #000;
+            transform: translateY(-1px);
+        }
+
+        /* Errors */
+        .error-box {
+            margin-top: 16px;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .error-box ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 28px 22px;
+            }
+
+            .login-box h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <%- include('partials/navbar') %>
+
+        <div class="login-wrapper">
+            <div class="login-box">
+                <h2>Welcome back</h2>
+
+                <form action="/login" method="POST">
+
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="Email address"
+                            value="<%= oldinputs.email ? oldinputs.email : '' %>" required>
+
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+
+                    <button type="submit">Sign in</button>
+
+                    <% if(errors.length){ %>
+                        <div class="error-box">
+                            <ul>
+                                <% errors.forEach((val)=>{ %>
+                                    <li>
+                                        <%= val %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <% } %>
+
+                </form>
+            </div>
+        </div>
+
+</body>
+
+</html>
